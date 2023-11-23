@@ -20,14 +20,10 @@ const routes = [
   {
     path: "/dashboard",
     component: DashboardView,
-    children: [
-      {
-        path: "/employees",
-          component: EmployeesView,
-      },
-      
-    ],
-  }
+  },{
+    path: "/dashboard/employees",
+      component: EmployeesView,
+  },
 ];
 
 const router = createRouter({
