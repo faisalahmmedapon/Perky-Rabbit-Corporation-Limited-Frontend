@@ -55,7 +55,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="employee in employees" :key="employee.id" class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <tr v-for="employee in employees" :key="employee.id"
+                                    class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
 
                                     <td class="px-4 py-2"> {{ employee.name }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -66,7 +67,8 @@
                                         {{ employee.address }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ employee.department.name }} </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ employee.created_at }} </td>
+                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{
+                                        employee.created_at }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <button>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -177,47 +179,47 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="#">
+                    <form @submit.prevent="createEmployee">
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
                                 <label for="name"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                <input type="text" name="name" id="name"
+                                <input v-model="newEmployee.name" type="text" name="name" id="name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Type product name" required="">
+                                    placeholder="Type name" required="">
                             </div>
                             <div>
-                                <label for="name"
+                                <label for="email"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="text" name="name" id="name"
+                                <input v-model="newEmployee.email" type="email" name="email" id="email"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Type product name" required="">
+                                    placeholder="Type email" required="">
                             </div>
                             <div>
-                                <label for="name"
+                                <label for="phone"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                                <input type="text" name="name" id="name"
+                                <input v-model="newEmployee.phone" type="number" name="phone" id="phone"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Type product name" required="">
+                                    placeholder="Type phone" required="">
                             </div>
                             <div>
-                                <label for="name"
+                                <label for="address"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                                <input type="text" name="name" id="name"
+                                <input v-model="newEmployee.address" type="text" name="address" id="address"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Type product name" required="">
+                                    placeholder="Type product address" required="">
                             </div>
 
                             <div>
                                 <label for="category"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                                <select id="category"
+                                <select v-model="newEmployee.department_id" id="category"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option selected="">Select category</option>
-                                    <option value="TV">TV/Monitors</option>
-                                    <option value="PC">PC</option>
-                                    <option value="GA">Gaming/Console</option>
-                                    <option value="PH">Phones</option>
+                                    <option value="1">TV/Monitors</option>
+                                    <option value="2">PC</option>
+                                    <option value="3">Gaming/Console</option>
+                                    <option value="4">Phones</option>
                                 </select>
                             </div>
                         </div>
@@ -226,74 +228,40 @@
 
                         <ul>
 
-                            <label for="category"
+                            <label for="Achievements"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Achievements</label>
                             <div class="grid grid-cols-4 gap-2">
-                                <li>
+                                <li v-for="achievement in achievements" :key="achievement.id">
                                     <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-11" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-11"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Bonnie
-                                            Green</label>
+                                        <input :id="'checkbox-item-' + (achievement.id)" type="checkbox"
+                                            :value="achievement.id" v-model="newEmployee.achievements"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                        <label :for="'checkbox-item-' + (achievement.id)"
+                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                            {{ achievement.name }}
+                                        </label>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input checked id="checkbox-item-12" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-12"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Jese
-                                            Leos</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-13" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-13"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Michael
-                                            Gough</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-14" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-14"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Robert
-                                            Wall</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-15" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-15"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Joseph
-                                            Mcfall</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-16" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-16"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Leslie
-                                            Livingston</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-17" type="checkbox" value=""
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="checkbox-item-17"
-                                            class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Roberta
-                                            Casas</label>
-                                    </div>
-                                </li>
-
                             </div>
+
+
+                            <!-- <label for="Achievements"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Achievements</label>
+                            <div class="grid grid-cols-4 gap-2">
+                                <li v-for="achievement in achievements" :key="achievement.id">
+                                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <label class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                            {{ achievement.name }}
+                                        </label>
+                                    </div>
+                                </li>
+                            </div> -->
+
+
+
+
+
+
                         </ul>
                         <button type="submit"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -315,28 +283,102 @@
 
 import AppLayout from './AppLayout.vue';
 
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { ref } from 'vue';
 
-const employees = ref();
+const newEmployee = ref(
+    {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        department_id: '',
+        achievements: [],
+    });
 
-const getAllEmployees = async () => {
-    try {
-        let token = localStorage.getItem("token");
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/backend/employees', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        employees.value = response.data.employees;
 
-    } catch (error) {
-        console.error('Error fetching employees:', error);
-    }
+
+// Function to add an achievement to the newEmployee object
+// const addAchievement = (achievementName) => {
+//     newEmployee.value.achievements.push(achievementName);
+// };
+
+// // Function to remove an achievement from the newEmployee object
+// const removeAchievement = (achievementName) => {
+//     newEmployee.value.achievements = newEmployee.value.achievements.filter(
+//         (achievement) => achievement !== achievementName
+//     );
+// };
+
+
+const employees = ref([]);
+const achievements = ref([]);
+const token = localStorage.getItem('token');
+
+
+
+
+
+const fetchAchievements = async () => {
+    const response = await axios.get('http://127.0.0.1:8000/api/v1/backend/achievements', {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    achievements.value = response.data.achievements;
+
+    // console.log(achievements);
 };
 
-getAllEmployees();
 
-// console.log(employees);
+const fetchEmployees = async () => {
+    const response = await axios.get('http://127.0.0.1:8000/api/v1/backend/employees', {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    employees.value = response.data.employees;
+    // console.log(achievements);
+};
+
+
+
+
+
+
+const createEmployee = async () => {
+
+
+    // console.log(newEmployee.value);
+
+    const response = await axios.post('http://127.0.0.1:8000/api/v1/backend/employees', newEmployee.value, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+
+
+
+
+    console.log(response.data.employee);
+
+    newEmployee.value = {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        department: '',
+        achievements: [],
+    };
+    fetchEmployees();
+};
+
+const deleteEmployee = async (employeeId) => {
+    await axios.delete(`http://127.0.0.1:8000/api/v1/backend/employees/${employeeId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    fetchEmployees(); // Refresh the employee list
+};
+
+// Fetch employees when the component is mounted
+onMounted(async () => {
+    await fetchEmployees();
+    await fetchAchievements();
+});
+
 
 </script>
