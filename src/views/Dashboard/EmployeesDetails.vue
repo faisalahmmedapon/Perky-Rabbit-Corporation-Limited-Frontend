@@ -18,16 +18,19 @@
                                 <p class="text-center text-sm text-gray-400 font-medium">{{ employee.email }}</p>
 
                                 <div class="my-5 px-6">
-                                    <a href="#"
-                                        class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">Contact
-                                        with <span class="font-bold">{{ employee.phone }}</span></a>
+                                    <p href="#"
+                                        class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">
+                                        Contact
+                                        with <span class="font-bold">{{ employee.phone }}</span></p>
                                 </div>
                                 <div class="flex justify-between items-center my-5 px-6">
-                                    <a href=""
-                                        class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Address : {{ employee.address }}</a>
-                                    <a href=""
-                                        class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Department: {{ employee.department }}
-                                    </a>
+                                    <p
+                                        class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                        Address : {{ employee.address }}</p>
+                                    <p
+                                        class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                        Department: {{ employee.department }}
+                                    </p>
                                 </div>
 
                                 <div class="w-full">

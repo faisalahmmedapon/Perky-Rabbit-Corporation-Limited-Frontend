@@ -231,11 +231,11 @@
                             <div>
                                 <label for="category"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                                <select v-model="newEmployee.department_id" id="category"
+                                <select v-model="newEmployee.department_id" id="department_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected="">Select category</option>
+                                    <option selected="">Select Department</option>
                                     <option v-for="department in departments" :key="department.id"
-                                        value="`{{ department.id }}}`">{{ department.name }}</option>
+                                        :value="department.id">{{ department.name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -385,6 +385,8 @@ const showEmployee = async (employeeId) => {
     console.log(isShowModalOpen);
 
 };
+
+
 
 // Fetch employees when the component is mounted
 onMounted(async () => {
