@@ -55,6 +55,8 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+
                                 <tr v-for="employee in employees" :key="employee.id"
                                     class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
 
@@ -69,8 +71,9 @@
                                         {{ employee.department.name }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{
                                         employee.created_at }} </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <button type="button" @click="showEmployee(employee.id)">
+
+                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white flex">
+                                        <router-link :to="{ name: 'employee-details', params: { id: employee.id } }">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -78,7 +81,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
-                                        </button>
+                                        </router-link>
 
                                         <button>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -98,6 +101,7 @@
                                         </button>
                                     </td>
                                 </tr>
+
 
                             </tbody>
                         </table>
@@ -163,7 +167,10 @@
 
 
 
-        <h3 v-if="isShowModalOpen==true">This is modal </h3>
+
+
+
+
 
         <!-- employee create modal -->
         <div id="defaultModal" tabindex="-1" aria-hidden="true"
@@ -297,7 +304,10 @@ const isShowModalOpen = ref(false);
 // for store data 
 const employees = ref([]);
 const departments = ref([]);
+const singleEmployee = ref([]);
 const achievements = ref([]);
+
+
 const token = localStorage.getItem('token');
 
 
@@ -309,6 +319,7 @@ const fetchDepartments = async () => {
         headers: { Authorization: `Bearer ${token}` },
     });
     departments.value = response.data.departments;
+
 
     // console.log(achievements);
 };
@@ -369,6 +380,8 @@ const showEmployee = async (employeeId) => {
     });
 
     isShowModalOpen.value = true;
+
+    singleEmployee.value = response.data.employee;
     console.log(isShowModalOpen);
 
 };

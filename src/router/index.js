@@ -6,6 +6,7 @@ const RegisterView = () => import("../views/Auth/RegisterView.vue");
 
 const DashboardView = () => import("../views/Dashboard/DashboardView.vue");
 const EmployeesView = () => import("../views/Dashboard/EmployeesView.vue");
+const EmployeesDetails = () => import("../views/Dashboard/EmployeesDetails.vue");
 
 const routes = [
 
@@ -20,9 +21,15 @@ const routes = [
   {
     path: "/dashboard",
     component: DashboardView,
-  },{
+  },
+  {
     path: "/dashboard/employees",
       component: EmployeesView,
+  },
+  {
+    path: "/dashboard/employee-details/:id",
+    name : 'employee-details',
+      component: EmployeesDetails,
   },
 ];
 
