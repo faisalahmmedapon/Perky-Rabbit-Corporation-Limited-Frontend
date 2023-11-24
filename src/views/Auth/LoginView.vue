@@ -14,12 +14,12 @@
                             </div>
 
                             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                                <form class="space-y-6" action="#" method="POST">
+                                <form class="space-y-6" @submit.prevent="login">
                                     <div>
                                         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
                                             address</label>
                                         <div class="mt-2">
-                                            <input id="email" name="email" type="email" autocomplete="email" required
+                                            <input v-model="email" id="email" name="email" type="email" autocomplete="email" required
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         </div>
                                     </div>
@@ -35,7 +35,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-2">
-                                            <input id="password" name="password" type="password"
+                                            <input v-model="password" id="password" name="password" type="password"
                                                 autocomplete="current-password" required
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         </div>
@@ -62,6 +62,29 @@
 </template>
 
 <script setup>
+import { ref} from 'vue';
+import axios from 'axios';
+
+
+const email = ref('admin@gmail.com');
+const password = ref('12345678');
+
+
+const login = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/v1/backend/login', { email: email.value, password: password.value });
+    // Assuming the server responds with a token on successful login
+    const token = response.data.token;
+    localStorage.setItem('token', token);
+
+    console.log(token);
+
+    location.href = "/dashboard";
+
+  } catch (error) {
+    console.error('Login failed', error);
+  }
+};
 </script>
 
 <style></style>
