@@ -36,7 +36,7 @@
                                     <path clip-rule="evenodd" fill-rule="evenodd"
                                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
-                                Add new product
+                                Add new Employee
                             </button>
 
                         </div>
@@ -55,19 +55,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <tr v-for="employee in employees" :key="employee.id" class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
 
-                                    <td class="px-4 py-2"> Faisal Ahmmed </td>
+                                    <td class="px-4 py-2"> {{ employee.name }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        developerfaisal32@gmail.com </td>
+                                        {{ employee.email }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        +8801307788699 </td>
+                                        {{ employee.phone }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Dhaka,Bangladesh </td>
+                                        {{ employee.address }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Department </td>
-                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"> Just
-                                        now </td>
+                                        {{ employee.department.name }} </td>
+                                    <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ employee.created_at }} </td>
                                     <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <button>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -315,8 +314,29 @@
 <script setup>
 
 import AppLayout from './AppLayout.vue';
+
+import axios from 'axios';
 import { ref } from 'vue';
 
+const employees = ref();
 
+const getAllEmployees = async () => {
+    try {
+        let token = localStorage.getItem("token");
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/backend/employees', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        employees.value = response.data.employees;
+
+    } catch (error) {
+        console.error('Error fetching employees:', error);
+    }
+};
+
+getAllEmployees();
+
+// console.log(employees);
 
 </script>
